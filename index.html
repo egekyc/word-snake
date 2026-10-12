@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Word Snake</title>
+  <meta name="description" content="A pixel-art snake game where you eat letters to spell the answer to a trivia question.">
+  <meta name="theme-color" content="#0f1020">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main class="app">
+    <h1 class="logo"><span class="logo-word">WORD</span><span class="logo-snake">SNAKE</span></h1>
+
+    <section class="hud" aria-label="Stats">
+      <div class="stat px"><span class="label">SCORE</span><span id="score" class="value">0</span></div>
+      <div class="stat px"><span class="label">BOXES</span><span id="length" class="value">3</span></div>
+      <div class="stat px"><span class="label">WORDS</span><span id="words" class="value">0</span></div>
+      <div class="stat px"><span class="label">BEST</span><span id="best" class="value">0</span></div>
+    </section>
+
+    <section class="quiz px" aria-live="polite">
+      <div class="quiz-top">
+        <span id="category" class="tag">READY</span>
+        <span id="reward" class="reward" hidden>REWARD +0</span>
+      </div>
+      <p id="question" class="question">Eat the letters to spell the answer to each question.</p>
+      <div id="slots" class="slots" role="img"></div>
+      <p id="message" class="message"></p>
+    </section>
+
+    <div id="boardWrap" class="board-wrap px">
+      <canvas id="board" aria-label="Game board"></canvas>
+
+      <div id="overlay" class="overlay">
+        <div id="titlePanel" class="panel">
+          <p class="big">READY?</p>
+          <ul class="rules">
+            <li><span class="icon q">?</span>Read the question.</li>
+            <li><span class="icon a">A</span>Eat letters in order to spell the answer.</li>
+            <li><span class="icon bad">-1</span>Wrong letter or wrong answer: lose a box.</li>
+            <li><span class="icon good">+N</span>Right answer: gain 1 box per letter.</li>
+          </ul>
+          <div class="speed" role="group" aria-label="Speed">
+            <button type="button" class="btn" data-speed="slow" aria-pressed="false">SLOW</button>
+            <button type="button" class="btn" data-speed="normal" aria-pressed="true">NORMAL</button>
+            <button type="button" class="btn" data-speed="fast" aria-pressed="false">FAST</button>
+          </div>
+          <button type="button" id="startBtn" class="btn btn-go">START</button>
+          <p class="blink hint">PRESS ENTER</p>
+        </div>
+
+        <div id="askPanel" class="panel ask" role="dialog" aria-labelledby="askQuestion" hidden>
+          <span id="askCategory" class="tag">WORLD</span>
+          <p id="askQuestion" class="ask-question"></p>
+          <p id="askInfo" class="ask-info"></p>
+          <button type="button" id="goBtn" class="btn btn-go">GO!</button>
+          <p class="blink hint">PRESS ENTER OR AN ARROW KEY</p>
+        </div>
+
+        <div id="pausePanel" class="panel" hidden>
+          <p class="big">PAUSED</p>
+          <button type="button" id="resumeBtn" class="btn btn-go">RESUME</button>
+          <button type="button" id="menuBtn" class="btn">QUIT TO MENU</button>
+        </div>
+
+        <div id="overPanel" class="panel" hidden>
+          <p class="big bad">GAME OVER</p>
+          <p id="overReason" class="reason"></p>
+          <p class="final">SCORE <b id="overScore">0</b> &middot; WORDS <b id="overWords">0</b></p>
+          <p id="overBest" class="final"></p>
+          <button type="button" id="againBtn" class="btn btn-go">PLAY AGAIN</button>
+          <p class="blink hint">PRESS ENTER</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <div class="buttons">
+        <button type="button" id="pauseBtn" class="btn">PAUSE</button>
+        <button type="button" id="skipBtn" class="btn" title="Skip this question (costs 1 box)">SKIP -1</button>
+        <button type="button" id="soundBtn" class="btn" aria-pressed="true">SOUND ON</button>
+      </div>
+    </div>
+
+    <p class="help">ARROWS / WASD move &middot; SPACE pause &middot; N skip &middot; M sound</p>
+  </main>
+
+  <script src="js/font.js"></script>
+  <script src="js/questions.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>
